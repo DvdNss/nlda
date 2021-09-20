@@ -1,3 +1,0 @@
-[submodule "language_detection"]
-	path = language_detection
-	url = https://github.com/Sunwaee/language_detection.git
