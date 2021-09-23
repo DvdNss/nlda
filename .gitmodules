@@ -1,3 +1,6 @@
 [submodule "language_detection"]
 	path = language_detection
 	url = https://github.com/Sunwaee/language_detection.git
+[submodule "helsinki_translation"]
+	path = helsinki_translation
+	url = https://github.com/Sunwaee/helsinki_translation.git

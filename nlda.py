@@ -6,7 +6,7 @@ ld_path = 'language_detection/model/lid.176.ftz'
 language_detector = load_model(ld_path)
 
 # Detect language
-result = detect_language(['this is a test', 'mi chiamo DAvide sono francese'], language_detector=language_detector)
+result = detect_language(['this is a test', 'mi chiamo davide sono francese'], language_detector=language_detector)
 print(result['stats'])
 
 # TODO: translation and paraphrasing
