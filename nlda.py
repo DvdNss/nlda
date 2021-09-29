@@ -1,32 +1,15 @@
-import logging
-
-import pandas
-
 from helsinki_translation.helsinki_translation import load_model as load_translator, translate
 from helsinki_translation.languages import Language
-from language_detection.language_detector import load_model as load_detector, detect_language_from_df
+from language_detection.language_detector import load_model as load_detector, detect_language
 
-logging.basicConfig(level=logging.INFO)
+ld_path = 'language_detection/model/lid.176.ftz'
 
 # Load language detector
-language_detector = load_detector()
-
-# Load DataFrame
-dataset = pandas.read_csv('df.tsv', sep='\t').astype(str)
+language_detector = load_detector(ld_path)
 
 # Detect language
-dataset, stats = detect_language_from_df(dataset, language_detector=language_detector)
-logging.info(f" Dataset stats are the following:\n{stats}")
-
-target_languages = ['en', 'fr', 'it']
-
-# Add id column to track translations
-dataset['id'] = ''
-data_to_add = []
-
-for index, row in dataset.iterrows():
-    row['id'] = index
-    data_to_add.append([])
+result = detect_language(['this is a test', 'mi chiamo davide sono francese'], language_detector=language_detector)
+print(result['stats'])
 
 # Load translator
 tokenizer, translator = load_translator(source=Language.English, target=Language.French)
@@ -34,3 +17,5 @@ tokenizer, translator = load_translator(source=Language.English, target=Language
 # Translate some text
 translation = translate(source='Hi, my name is David.', tokenizer=tokenizer, model=translator)
 print(translation)
+
+# TODO: paraphrasing
