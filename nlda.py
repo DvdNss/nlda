@@ -1,6 +1,6 @@
-from language_detection.language_detector import load_model as load_detector, detect_language
 from helsinki_translation.helsinki_translation import load_model as load_translator, translate
 from helsinki_translation.languages import Language
+from language_detection.language_detector import load_model as load_detector, detect_language
 
 ld_path = 'language_detection/model/lid.176.ftz'
 
