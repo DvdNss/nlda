@@ -40,8 +40,6 @@ Augment your Natural Language data easily.
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
@@ -72,7 +70,45 @@ pip install -r requirements.txt
 
 ## Usage
 
-Not ready yet
+### Prerequisites
+
+- .tsv file containing atleast 2 columns, with source and target text
+
+### Example
+
+Here is an example of how to use NLDA from `main.py`. This takes sentences contained in the `source_text` column of
+the `example.tsv` dataset and will translate them to `target_languages`. It will use CUDA if available and CPU otherwise.
+
+```python
+from nlda import translate_dataset
+
+# Dataset informations
+path_to_dataset = 'example.tsv'
+target_languages = ['en', 'fr']
+
+# Augment dataset using translation with default arguments
+translate_dataset(path_to_dataset, target_languages=target_languages)
+```
+
+> Note that other arguments can be passed, including `source_col`, `target_col`, `translate_targets` and `aug_data_path`.
+
+Output should be as follows:
+
+```shell
+INFO:root:Currently running NLDA. 
+
+Warning : `load_model` does not return WordVectorModel or SupervisedModel any more, but a `FastText` object which is very similar.
+INFO:root: Dataset stats are the following:
+en    0.333333
+it    0.333333
+fr    0.333333
+Name: language, dtype: float64
+
+INFO:root: Translating your dataset to ['en', 'fr']. Please wait...
+100%|██████████| 3/3 [00:35<00:00, 11.73s/it]
+
+INFO:root: Augmented dataset has been saved to augmented_data.tsv. 
+```
 
 <!-- CONTRIBUTING -->
 
@@ -107,9 +143,7 @@ David NAISSE - [@LinkedIn](https://www.linkedin.com/in/davidnaisse/) - private.d
 
 ## Acknowledgements
 
-* 1
-* 2
-* 3
+* None
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
