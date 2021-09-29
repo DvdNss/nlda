@@ -10,7 +10,7 @@
 <p align="center">
 <h3 align="center">NLDA - Natural Language Data Augmentation </h3>
 <p align="center">
-Augment your NLP data easily.
+Augment your Natural Language data easily.
 </p>
 
 
@@ -33,7 +33,6 @@ Augment your NLP data easily.
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -115,23 +114,23 @@ David NAISSE - [@LinkedIn](https://www.linkedin.com/in/davidnaisse/) - private.d
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/sunwaee/nlda.svg?style=for-the-badge
 
 [contributors-url]: https://github.com/Sunwaee/nlda/graphs/contributors
 
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/sunwaee/nlda.svg?style=for-the-badge
 
 [forks-url]: https://github.com/Sunwaee/nlda/network/members
 
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/sunwaee/nlda.svg?style=for-the-badge
 
 [stars-url]: https://github.com/Sunwaee/nlda/stargazers
 
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/sunwaee/nlda.svg?style=for-the-badge
 
 [issues-url]: https://github.com/Sunwaee/nlda/issues
 
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/sunwaee/nlda.svg?style=for-the-badge
 
 [license-url]: https://github.com/Sunwaee/nlda/blob/master/LICENSE.txt
 
