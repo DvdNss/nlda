@@ -12,7 +12,7 @@ def df_to_file(df: pd.DataFrame):
 
 @st.cache
 def load_ld():
-    return load_detector(path='nlda/language_detection/model/lid.176.ftz')
+    return load_detector()
 
 
 # Page header
