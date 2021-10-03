@@ -79,3 +79,57 @@ def translate_dataset(path: str, target_languages: List[str], translate_targets:
     # Write augmented data to file
     augmented_dataset.to_csv(aug_data_path, sep='\t')
     logging.info(f' Augmented dataset has been saved to {aug_data_path}. ')
+
+
+def translate_dataframe(df: pandas.DataFrame, stats, target_languages: List[str], translate_targets: bool = False):
+    """
+    Translate dataframe
+
+    :param df: dataframe
+    :param stats: stats
+    :param target_languages: targets_languages
+    :param translate_targets: whether or not to translate targets
+    :return:
+    """
+
+    # Add id column to track translations
+    df['id'] = ''
+    for index, row in df.iterrows():
+        row['id'] = index
+
+    # Declare variables
+    data_to_add = []
+
+    # Start data augmentation
+    logging.info(f' Translating your dataset to {target_languages}. Please wait...')
+    logging.basicConfig(level=logging.NOTSET)
+
+    for source_language in tqdm(stats.keys()):
+        for target_language in target_languages:
+            if source_language != target_language:
+
+                # try/except in case language pair is unavailable
+                try:
+                    # Load source-target pair model
+                    tokenizer, translator = load_translator(source=source_language, target=target_language)
+
+                    # Augment data
+                    for index, row in df.iterrows():
+                        if row['language'] == source_language:
+                            data_to_add.append([
+                                translate(source=row['source_text'], tokenizer=tokenizer, model=translator),
+                                translate(source=row['target_text'], tokenizer=tokenizer,
+                                          model=translator) if translate_targets is True else row['target_text'],
+                                target_language,
+                                row['id']
+                            ])
+                except:
+                    pass
+    print('')
+
+    # Convert augmented data list to dataframe and append it to the not augmented one
+    new_dataset = pandas.DataFrame(data_to_add, columns=['source_text', 'target_text', 'language', 'id'])
+    augmented_dataset = df.append(new_dataset, ignore_index=True).sort_values('id').reset_index(drop=True)
+
+    # Return augmented dataset
+    return augmented_dataset
