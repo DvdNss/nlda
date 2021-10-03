@@ -5,3 +5,4 @@ sentencepiece~=0.1.96
 tqdm~=4.62.3
 streamlit~=0.89.0
 torch==1.9.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+torch~=1.9.1+cu111
