@@ -17,27 +17,29 @@ def load_ld():
 
 # Page header
 st.title('NLDA - Natural Language Data Augmentation')
-st.write('Natural Language Augmentation made easy.')
+col1, col2 = st.columns(2)
 
 # Load language detector
 language_detector = load_ld()
 
 # Dataset uploader
-uploaded_file = st.file_uploader('Upload your dataset. ', type=['.csv', '.tsv'])
+uploaded_file = col1.file_uploader('Import your dataset', type=['.csv', '.tsv'])
 if uploaded_file is not None:
     dataset = pd.read_csv(uploaded_file, sep='\t').astype(str)
     file_details = {"FileName": uploaded_file.name, "FileSize": len(dataset), "Columns": [c for c in dataset.columns]}
 
     # Write dataset informations
-    st.write(file_details)
+    col2.write(file_details)
 
     # Display dataset
+    st.write('Here\'s a quick overview of your dataset')
     st.write(dataset)
 
     # Apply language detection
+    col3, col4 = st.columns(2)
     dataset, stats = detect_language_from_df(dataset, language_detector=language_detector)
-    st.write('Here are the languages statistics about your dataset: ')
-    st.write(stats)
+    col3.write('Percentage of data per language: ')
+    col3.write(stats)
 
     # Choose target languages
     languages = {
@@ -181,22 +183,24 @@ if uploaded_file is not None:
         'Zhuang': 'za',
         'Zulu': 'zu'
     }
-    selected_languages = st.multiselect("Select your target languages: ", options=languages)
-    st.write(f'You selected {selected_languages} languages. ')
+    selected_languages = col4.multiselect("Select your target languages: ", options=languages)
 
     # Augment dataset
-    doAugment = st.button('Augment dataset')
-    if doAugment:
+    doAugment = col4.button('Augment dataset')
+    translateTargets = col4.checkbox('Translate targets')
+    if doAugment and len(selected_languages) != 0:
         for index, item in enumerate(selected_languages):
             selected_languages[index] = languages[item]
 
         # Build augmented dataset
         with st.spinner('Augmenting your dataset... This might take a while...'):
-            augmented_dataset = translate_dataframe(dataset, stats, selected_languages)
+            augmented_dataset = translate_dataframe(dataset, stats, selected_languages,
+                                                    translate_targets=translateTargets)
             file = df_to_file(augmented_dataset)
-        st.success('Augmented dataset is ready! Click the download button below. ')
+        st.success(
+            f'Augmented dataset is ready! It is now {len(augmented_dataset) / len(dataset)} times bigger! Click the '
+            f'button below to download it. ')
 
         # Display augmented dataset and download button
         st.write(augmented_dataset)
-        st.download_button('Download augmented dataset', data=file,
-                           file_name='augmented_dataset.tsv')
+        st.download_button('Download augmented dataset', data=file, file_name='augmented_dataset.tsv')
